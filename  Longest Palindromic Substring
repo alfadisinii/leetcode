@@ -1,0 +1,30 @@
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.empty()) return "";
+        int start = 0, maxLen = 1;
+        for (int i = 0; i < s.size(); ++i) {
+            // Palindrome ganjil (center di satu huruf)
+            int len1 = expandFromCenter(s, i, i);
+            // Palindrome genap (center di antara dua huruf)
+            int len2 = expandFromCenter(s, i, i + 1);
+            int len = max(len1, len2);
+            if (len > maxLen) {
+                start = i - (len - 1) / 2;
+                maxLen = len;
+            }
+        }
+        return s.substr(start, maxLen);
+    }
+private:
+    int expandFromCenter(const string& s, int left, int right) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            --left;
+            ++right;
+        }
+        return right - left - 1;
+    }
+};
