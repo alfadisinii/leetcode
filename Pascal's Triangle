@@ -1,0 +1,21 @@
+function generate(numRows: number): number[][] {
+    const triangle: number[][] = [];
+
+    for (let row = 0; row < numRows; row++) {
+        const current: number[] = [];
+        for (let col = 0; col <= row; col++) {
+            if (col === 0 || col === row) {
+                current.push(1);
+            } else {
+                current.push(triangle[row - 1][col - 1] + triangle[row - 1][col]);
+            }
+        }
+        triangle.push(current);
+    }
+
+    return triangle;
+}
+
+// Example usage:
+console.log(generate(5)); // [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+console.log(generate(1)); // [[1]]
