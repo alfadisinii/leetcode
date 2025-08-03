@@ -1,0 +1,20 @@
+function swapPairs(head: ListNode | null): ListNode | null {
+    let dummy = new ListNode(0, head);
+    let prev = dummy;
+
+    while (head !== null && head.next !== null) {
+        let first = head;
+        let second = head.next;
+
+        // Swap
+        prev.next = second;
+        first.next = second.next;
+        second.next = first;
+
+        // Move pointers forward for next pair
+        prev = first;
+        head = first.next;
+    }
+
+    return dummy.next;
+}
